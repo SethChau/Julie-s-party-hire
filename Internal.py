@@ -124,6 +124,22 @@ item_count_label.grid(row=3, column=0, padx=5, pady=5)
 item_count_entry = tk.Entry(root)
 item_count_entry.grid(row=3, column=1, padx=5, pady=5)
 
+# Create the buttons
+add_button = tk.Button(root, text="Add item", command=add_item)
+add_button.grid(row=4, column=0, padx=5, pady=5)
+
+return_label = tk.Label(root, text="Select item to return:")
+return_label.grid(row=4, column=1, padx=5, pady=5)
+
+item_combo = ttk.Combobox(root, state="readonly")
+item_combo.grid(row=4, column=2, padx=5, pady=5)
+
+return_button = tk.Button(root, text="Return item", command=return_item)
+return_button.grid(row=4, column=3, padx=5, pady=5)
+
+# Create the status label
+status_label = tk.Label(root, text="")
+status_label.grid(row=5, column=0, columnspan=4, padx=5, pady=5)
 
 
 
