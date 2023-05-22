@@ -80,6 +80,13 @@ def return_item():
         
         # Function to update the treeview
 def update_treeview():
+    # Clear the treeview and combo box
+    items_out_treeview.delete(*items_out_treeview.get_children())
+    item_combo['values'] = ()
+
+    # Create a list to store the combo box values
+    combo_box_values = list(item_combo['values'])
+
     
 
 
