@@ -81,22 +81,7 @@ def return_item():
         # Function to update the treeview
 def update_treeview():
     
-        # Get the selected item from the combo box
-    selected_item = item_combo.get()
 
-    # Extract the receipt number from the selected item
-    receipt_number = int(selected_item.split("(")[-1].replace(")", ""))
-
-    if receipt_number in items_out:
-        item_name = items_out[receipt_number]['item_name']
-        customer_name = items_out[receipt_number]['customer_name']
-        item_count = items_out[receipt_number]['item_count']
-        del items_out[receipt_number]
-        status_label.config(
-            text=f"{item_count} {item_name}(s) returned by {customer_name}. Receipt number {receipt_number} removed from items out list.")
-        update_treeview()
-    else:
-        status_label.config(text="Selected item not found in item list.")
 
 
 
