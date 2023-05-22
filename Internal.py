@@ -86,6 +86,18 @@ def update_treeview():
 
     # Create a list to store the combo box values
     combo_box_values = list(item_combo['values'])
+       
+    # Populate the treeview and combo box with the updated data
+    for receipt_number, item_data in items_out.items():
+        customer_name = item_data['customer_name']
+        item_name = item_data['item_name']
+        item_count = item_data['item_count']
+        items_out_treeview.insert("", tk.END, values=(receipt_number, customer_name, item_name, item_count))
+        combo_box_values.append(f"{item_name} ({item_count}) - Receipt: {receipt_number}")
+
+    # Update the combo box values
+    item_combo['values'] = tuple(combo_box_values)
+
 
     
 
