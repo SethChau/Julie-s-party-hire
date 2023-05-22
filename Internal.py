@@ -141,6 +141,20 @@ return_button.grid(row=4, column=3, padx=5, pady=5)
 status_label = tk.Label(root, text="")
 status_label.grid(row=5, column=0, columnspan=4, padx=5, pady=5)
 
+# Create the treeview
+items_out_treeview = ttk.Treeview(root, columns=("receipt_number", "customer_name", "item_name", "item_count"),
+                                  show="headings")
+items_out_treeview.heading("receipt_number", text="Receipt number")
+items_out_treeview.heading("customer_name", text="Customer name")
+items_out_treeview.heading("item_name", text="Item name")
+items_out_treeview.heading("item_count", text="Item count")
+items_out_treeview.grid(row=6, column=0, columnspan=4, padx=5, pady=5)
+
+# Call the function to update the treeview with the initial data
+update_treeview()
+
+# Start the main event loop
+root.mainloop()
 
 
 
