@@ -99,7 +99,31 @@ def update_treeview():
     item_combo['values'] = tuple(combo_box_values)
 
 
-    
+# Create the GUI window
+root = tk.Tk()
+root.title("Party Hire Store")
+
+# Create the input fields
+customer_name_label = tk.Label(root, text="Customer full name:")
+customer_name_label.grid(row=0, column=0, padx=5, pady=5)
+customer_name_entry = tk.Entry(root)
+customer_name_entry.grid(row=0, column=1, padx=5, pady=5)
+
+receipt_number_label = tk.Label(root, text="Receipt number:")
+receipt_number_label.grid(row=1, column=0, padx=5, pady=5)
+receipt_number_entry = tk.Entry(root)
+receipt_number_entry.grid(row=1, column=1, padx=5, pady=5)
+
+item_name_label = tk.Label(root, text="Item that is hired:")
+item_name_label.grid(row=2, column=0, padx=5, pady=5)
+item_name_entry = tk.Entry(root)
+item_name_entry.grid(row=2, column=1, padx=5, pady=5)
+
+item_count_label = tk.Label(root, text="Item count:")
+item_count_label.grid(row=3, column=0, padx=5, pady=5)
+item_count_entry = tk.Entry(root)
+item_count_entry.grid(row=3, column=1, padx=5, pady=5)
+
 
 
 
