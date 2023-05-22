@@ -58,3 +58,9 @@ def add_item():
 
     # Call the function to update the treeview with the latest data
     update_treeview()
+    
+    # Function to remove an item from the list of items that are currently out
+def return_item():
+    # Get the selected item from the combo box
+    selected_item = item_combo.get()
+
