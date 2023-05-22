@@ -77,5 +77,8 @@ def return_item():
         update_treeview()
     else:
         status_label.config(text="Selected item not found in item list.")
+        
+        # Function to update the treeview
+def update_treeview():
 
 
