@@ -144,13 +144,21 @@ status_label = tk.Label(root, text="")
 status_label.grid(row=5, column=0, columnspan=4, padx=5, pady=5)
 
 # Create the treeview
-items_out_treeview = ttk.Treeview(root, columns=("receipt_number", "customer_name", "item_name", "item_count"),
-                                  show="headings")
+tree_frame = tk.Frame(root)
+tree_frame.grid(row=6, column=0, columnspan=4, padx=5, pady=5)
+
+tree_scroll = tk.Scrollbar(tree_frame)
+tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+
+items_out_treeview = ttk.Treeview(tree_frame, columns=("receipt_number", "customer_name", "item_name", "item_count"),
+                                  show="headings", yscrollcommand=tree_scroll.set)
 items_out_treeview.heading("receipt_number", text="Receipt number")
 items_out_treeview.heading("customer_name", text="Customer name")
 items_out_treeview.heading("item_name", text="Item name")
 items_out_treeview.heading("item_count", text="Item count")
-items_out_treeview.grid(row=6, column=0, columnspan=4, padx=5, pady=5)
+items_out_treeview.pack()
+
+tree_scroll.config(command=items_out_treeview.yview)
 
 # Call the function to update the treeview with the initial data
 update_treeview()
