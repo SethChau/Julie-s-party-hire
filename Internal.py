@@ -105,47 +105,13 @@ def update_treeview():
 root = tk.Tk()
 root.title("Party Hire Store")
 
-# Create the input fields
-customer_name_label = tk.Label(root, text="Customer full name:")
-customer_name_label.grid(row=0, column=0, padx=5, pady=5)
-customer_name_entry = tk.Entry(root)
-customer_name_entry.grid(row=0, column=1, padx=5, pady=5)
-
-receipt_number_label = tk.Label(root, text="Receipt number:")
-receipt_number_label.grid(row=1, column=0, padx=5, pady=5)
-receipt_number_entry = tk.Entry(root)
-receipt_number_entry.grid(row=1, column=1, padx=5, pady=5)
-
-item_name_label = tk.Label(root, text="Item that is hired:")
-item_name_label.grid(row=2, column=0, padx=5, pady=5)
-item_name_entry = tk.Entry(root)
-item_name_entry.grid(row=2, column=1, padx=5, pady=5)
-
-item_count_label = tk.Label(root, text="Item count:")
-item_count_label.grid(row=3, column=0, padx=5, pady=5)
-item_count_entry = tk.Entry(root)
-item_count_entry.grid(row=3, column=1, padx=5, pady=5)
-
-# Create the buttons
-add_button = tk.Button(root, text="Add item", command=add_item)
-add_button.grid(row=4, column=0, padx=5, pady=5)
-
-return_label = tk.Label(root, text="Select item to return:")
-return_label.grid(row=4, column=1, padx=5, pady=5)
-
-item_combo = ttk.Combobox(root, state="readonly")
-item_combo.grid(row=4, column=2, padx=5, pady=5)
-
-return_button = tk.Button(root, text="Return item", command=return_item)
-return_button.grid(row=4, column=3, padx=5, pady=5)
-
-# Create the status label
-status_label = tk.Label(root, text="")
-status_label.grid(row=5, column=0, columnspan=4, padx=5, pady=5)
+# Create a style for the treeview
+style = ttk.Style()
+style.theme_use("default")
 
 # Create the treeview
 tree_frame = tk.Frame(root)
-tree_frame.grid(row=6, column=0, columnspan=4, padx=5, pady=5)
+tree_frame.pack()
 
 tree_scroll = tk.Scrollbar(tree_frame)
 tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
@@ -160,11 +126,56 @@ items_out_treeview.pack()
 
 tree_scroll.config(command=items_out_treeview.yview)
 
-# Call the function to update the treeview with the initial data
-update_treeview()
+# Configure the treeview colors
+style.configure("Treeview", background="white", foreground="black")  # Set background and foreground colors of the treeview
+
+# Create labels and entry fields
+label_frame = tk.Frame(root)
+label_frame.pack(pady=10)
+
+customer_name_label = tk.Label(label_frame, text="Customer Name:")
+customer_name_label.grid(row=0, column=0, padx=10)
+customer_name_entry = tk.Entry(label_frame)
+customer_name_entry.grid(row=0, column=1)
+
+receipt_number_label = tk.Label(label_frame, text="Receipt Number:")
+receipt_number_label.grid(row=1, column=0, padx=10)
+receipt_number_entry = tk.Entry(label_frame)
+receipt_number_entry.grid(row=1, column=1)
+
+item_name_label = tk.Label(label_frame, text="Item Name:")
+item_name_label.grid(row=2, column=0, padx=10)
+item_name_entry = tk.Entry(label_frame)
+item_name_entry.grid(row=2, column=1)
+
+item_count_label = tk.Label(label_frame, text="Item Count:")
+item_count_label.grid(row=3, column=0, padx=10)
+item_count_entry = tk.Entry(label_frame)
+item_count_entry.grid(row=3, column=1)
+
+# Create buttons
+button_frame = tk.Frame(root)
+button_frame.pack(pady=10)
+
+add_button = tk.Button(button_frame, text="Add Item", command=add_item)
+add_button.grid(row=0, column=0, padx=10)
+return_button = tk.Button(button_frame, text="Return Item", command=return_item)
+return_button.grid(row=0, column=1)
+
+# Create a combo box to display the items available for return
+combo_frame = tk.Frame(root)
+combo_frame.pack(pady=10)
+
+combo_label = tk.Label(combo_frame, text="Select Item to Return:")
+combo_label.grid(row=0, column=0, padx=10)
+item_combo = ttk.Combobox(combo_frame, state="readonly")
+item_combo.grid(row=0, column=1, padx=10)
+
+# Create a label to display the status messages
+status_label = tk.Label(root, text="")
+status_label.pack(pady=10)
 
 # Start the main event loop
 root.mainloop()
-
 
 
