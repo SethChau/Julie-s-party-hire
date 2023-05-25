@@ -65,7 +65,9 @@ def return_item():
     selected_item = item_combo.get()
     
         # Extract the receipt number from the selected item
-    receipt_number = int(selected_item.split("(")[-1].replace(")", ""))
+    receipt_number_start_index = selected_item.rfind(":") + 2
+    receipt_number = int(selected_item[receipt_number_start_index:])
+
 
     if receipt_number in items_out:
         item_name = items_out[receipt_number]['item_name']
