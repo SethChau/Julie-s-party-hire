@@ -103,7 +103,7 @@ def update_treeview():
 
 # Create the GUI window
 root = tk.Tk()
-root.title("Party Hire Store")
+root.title("Julie’s Party Hire")
 
 # Create a style for the treeview
 style = ttk.Style()
