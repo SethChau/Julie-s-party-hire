@@ -51,14 +51,13 @@ def add_item():
 
     # Convert the receipt number to an integer
     receipt_number = int(receipt_number)
-       
+
     # Get the current date and time
     current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-
     # Add the item to the items_out dictionary
-    items_out[receipt_number] = {'customer_name': customer_name, 'item_name': item_name, 'item_count': item_count, 'datetime': current_datetime}
-}
+    items_out[receipt_number] = {'customer_name': customer_name, 'item_name': item_name, 'item_count': item_count,
+                                 'datetime': current_datetime}
 
     # Update the status label
     status_label.config(
@@ -66,7 +65,7 @@ def add_item():
 
     # Call the function to update the treeview with the latest data
     update_treeview()
-    
+   
     # Function to remove an item from the list of items that are currently out
 def return_item():
     # Get the selected item from the combo box
