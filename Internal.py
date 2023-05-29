@@ -89,8 +89,11 @@ def return_item():
         status_label.config(
             text=f"{item_count} {item_name}(s) returned by {customer_name}. Receipt number {receipt_number} removed from items out list.")
         update_treeview()
+       # Clear the combo box
+        item_combo.set("")
     else:
         status_label.config(text="Selected item not found in item list.")
+
 
 
 # Function to update the treeview
