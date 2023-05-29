@@ -65,16 +65,16 @@ def add_item():
 
     # Call the function to update the treeview with the latest data
     update_treeview()
-   
-    # Function to remove an item from the list of items that are currently out
+
+
+# Function to remove an item from the list of items that are currently out
 def return_item():
     # Get the selected item from the combo box
     selected_item = item_combo.get()
-    
-        # Extract the receipt number from the selected item
+
+    # Extract the receipt number from the selected item
     receipt_number_start_index = selected_item.rfind(":") + 2
     receipt_number = int(selected_item[receipt_number_start_index:])
-
 
     if receipt_number in items_out:
         item_name = items_out[receipt_number]['item_name']
@@ -86,7 +86,8 @@ def return_item():
         update_treeview()
     else:
         status_label.config(text="Selected item not found in item list.")
-        
+
+
 # Function to update the treeview
 def update_treeview():
     # Clear the treeview and combo box
@@ -95,20 +96,21 @@ def update_treeview():
 
     # Create a list to store the combo box values
     combo_box_values = list(item_combo['values'])
-       
+
     # Populate the treeview and combo box with the updated data
     for receipt_number, item_data in items_out.items():
         customer_name = item_data['customer_name']
         item_name = item_data['item_name']
         item_count = item_data['item_count']
         datetime = item_data['datetime']
-        items_out_treeview.insert("", tk.END, values=(receipt_number, customer_name, item_name, item_count))
+        items_out_treeview.insert("", tk.END, values=(receipt_number, customer_name, item_name, item_count, datetime))
         combo_box_values.append(f"{item_name} ({item_count}) - Receipt: {receipt_number}")
 
     # Update the combo box values
     item_combo['values'] = tuple(combo_box_values)
-    
-    # Function to save the data to a file
+
+
+# Function to save the data to a file
 def save_data():
     with open("items_out.pkl", "wb") as file:
         pickle.dump(items_out, file)
@@ -130,7 +132,8 @@ def load_data():
         status_label.config(text="Data loaded successfully.")
     except FileNotFoundError:
         status_label.config(text="No existing data found.")
-        
+
+
 # Create the GUI window
 root = tk.Tk()
 root.title("Julie’s Party Hire")
@@ -146,7 +149,7 @@ tree_frame.pack()
 tree_scroll = tk.Scrollbar(tree_frame)
 tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
 
-items_out_treeview = ttk.Treeview(tree_frame, columns=("receipt_number", "customer_name", "item_name", "item_count"),
+items_out_treeview = ttk.Treeview(tree_frame, columns=("receipt_number", "customer_name", "item_name", "item_count", "datetime"),
                                   show="headings", yscrollcommand=tree_scroll.set)
 items_out_treeview.heading("receipt_number", text="Receipt number")
 items_out_treeview.heading("customer_name", text="Customer name")
@@ -213,5 +216,3 @@ load_data()
 
 # Start the main event loop
 root.mainloop()
-
-
