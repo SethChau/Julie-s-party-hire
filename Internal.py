@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+import pickle
+from datetime import datetime
+
 
 # Initialize an empty dictionary to store the items that are currently out
 items_out = {}
@@ -48,9 +51,14 @@ def add_item():
 
     # Convert the receipt number to an integer
     receipt_number = int(receipt_number)
+       
+    # Get the current date and time
+    current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 
     # Add the item to the items_out dictionary
-    items_out[receipt_number] = {'customer_name': customer_name, 'item_name': item_name, 'item_count': item_count}
+    items_out[receipt_number] = {'customer_name': customer_name, 'item_name': item_name, 'item_count': item_count, 'datetime': current_datetime}
+}
 
     # Update the status label
     status_label.config(
@@ -80,7 +88,7 @@ def return_item():
     else:
         status_label.config(text="Selected item not found in item list.")
         
-        # Function to update the treeview
+# Function to update the treeview
 def update_treeview():
     # Clear the treeview and combo box
     items_out_treeview.delete(*items_out_treeview.get_children())
@@ -94,13 +102,36 @@ def update_treeview():
         customer_name = item_data['customer_name']
         item_name = item_data['item_name']
         item_count = item_data['item_count']
+        datetime = item_data['datetime']
         items_out_treeview.insert("", tk.END, values=(receipt_number, customer_name, item_name, item_count))
         combo_box_values.append(f"{item_name} ({item_count}) - Receipt: {receipt_number}")
 
     # Update the combo box values
     item_combo['values'] = tuple(combo_box_values)
+    
+    # Function to save the data to a file
+def save_data():
+    with open("items_out.pkl", "wb") as file:
+        pickle.dump(items_out, file)
+    status_label.config(text="Data saved successfully.")
 
 
+def load_data():
+    try:
+        with open("items_out.pkl", "rb") as file:
+            loaded_items_out = pickle.load(file)
+
+        # Check if 'datetime' key is present in each item's data, and add the key if missing
+        for item_data in loaded_items_out.values():
+            if 'datetime' not in item_data:
+                item_data['datetime'] = ''
+
+        items_out.update(loaded_items_out)
+        update_treeview()
+        status_label.config(text="Data loaded successfully.")
+    except FileNotFoundError:
+        status_label.config(text="No existing data found.")
+        
 # Create the GUI window
 root = tk.Tk()
 root.title("Julie’s Party Hire")
@@ -122,6 +153,7 @@ items_out_treeview.heading("receipt_number", text="Receipt number")
 items_out_treeview.heading("customer_name", text="Customer name")
 items_out_treeview.heading("item_name", text="Item name")
 items_out_treeview.heading("item_count", text="Item count")
+items_out_treeview.heading("datetime", text="Date and Time")
 items_out_treeview.pack()
 
 tree_scroll.config(command=items_out_treeview.yview)
@@ -161,6 +193,8 @@ add_button = tk.Button(button_frame, text="Add Item", command=add_item)
 add_button.grid(row=0, column=0, padx=10)
 return_button = tk.Button(button_frame, text="Return Item", command=return_item)
 return_button.grid(row=0, column=1)
+exit_button = tk.Button(button_frame, text="Save", command=save_data)
+exit_button.grid(row=0, column=2, padx=10)
 
 # Create a combo box to display the items available for return
 combo_frame = tk.Frame(root)
@@ -174,6 +208,9 @@ item_combo.grid(row=0, column=1, padx=10)
 # Create a label to display the status messages
 status_label = tk.Label(root, text="")
 status_label.pack(pady=10)
+
+# Load the existing data
+load_data()
 
 # Start the main event loop
 root.mainloop()
