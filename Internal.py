@@ -65,7 +65,12 @@ def add_item():
 
     # Call the function to update the treeview with the latest data
     update_treeview()
-
+    
+    # Clear the entry fields
+    customer_name_entry.delete(0, tk.END)
+    receipt_number_entry.delete(0, tk.END)
+    item_name_entry.delete(0, tk.END)
+    item_count_entry.delete(0, tk.END)
 
 # Function to remove an item from the list of items that are currently out
 def return_item():
