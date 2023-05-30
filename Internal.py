@@ -140,11 +140,53 @@ def load_data():
         status_label.config(text="Data loaded successfully.")
     except FileNotFoundError:
         status_label.config(text="No existing data found.")
+        
+def login():
+    # Get the login credentials from the entry fields
+    username = username_entry.get()
+    password = password_entry.get()
 
+    # Perform the authentication
+    if username == "Julie" and password == "Julie20070513":
+        login_window.destroy()
+        root.deiconify()  # Show the main window
+    else:
+        status_label_login.config(text="Invalid username or password.")
+
+
+# Create the login window
+login_window = tk.Tk()
+login_window.title("Login")
+
+# Configure the login window colors
+login_window.configure(bg="#FBE7C6")
+
+# Create labels and entry fields for login
+username_label = tk.Label(login_window, text="Username:", bg="#FBE7C6")
+username_label.pack(pady=10)
+username_entry = tk.Entry(login_window)
+username_entry.pack()
+
+password_label = tk.Label(login_window, text="Password:", bg="#FBE7C6")
+password_label.pack(pady=10)
+password_entry = tk.Entry(login_window, show="*")
+password_entry.pack()
+
+# Create a login button
+login_button = tk.Button(login_window, text="Login", command=login)
+login_button.pack(pady=10)
+
+# Create a label to display login status
+status_label_login = tk.Label(login_window, text="", bg="#FBE7C6", fg="red")
+status_label_login.pack()
+
+# Hide the main window initially
+root = tk.Tk()
+root.withdraw()
 
 # Create the GUI window
-root = tk.Tk()
 root.title("Julie’s Party Hire")
+root.configure(bg="#FBE7C6")
 
 # Create a style for the treeview
 style = ttk.Style()
@@ -167,9 +209,6 @@ items_out_treeview.heading("datetime", text="Date and Time")
 items_out_treeview.pack()
 
 tree_scroll.config(command=items_out_treeview.yview)
-
-# Configure the treeview colors
-style.configure("Treeview", background="white", foreground="black")  # Set background and foreground colors of the treeview
 
 # Create labels and entry fields
 label_frame = tk.Frame(root)
@@ -223,4 +262,4 @@ status_label.pack(pady=10)
 load_data()
 
 # Start the main event loop
-root.mainloop()
+login_window.mainloop()
