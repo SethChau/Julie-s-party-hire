@@ -201,6 +201,14 @@ tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
 
 items_out_treeview = ttk.Treeview(tree_frame, columns=("receipt_number", "customer_name", "item_name", "item_count", "datetime"),
                                   show="headings", yscrollcommand=tree_scroll.set)
+
+# Set the column alignments
+items_out_treeview.column("receipt_number", anchor=tk.CENTER)
+items_out_treeview.column("customer_name", anchor=tk.CENTER)
+items_out_treeview.column("item_name", anchor=tk.CENTER)
+items_out_treeview.column("item_count", anchor=tk.CENTER)
+items_out_treeview.column("datetime", anchor=tk.CENTER)
+
 items_out_treeview.heading("receipt_number", text="Receipt number")
 items_out_treeview.heading("customer_name", text="Customer name")
 items_out_treeview.heading("item_name", text="Item name")
@@ -242,8 +250,10 @@ add_button = tk.Button(button_frame, text="Add Item", command=add_item)
 add_button.grid(row=0, column=0, padx=10)
 return_button = tk.Button(button_frame, text="Return Item", command=return_item)
 return_button.grid(row=0, column=1)
-exit_button = tk.Button(button_frame, text="Save", command=save_data)
-exit_button.grid(row=0, column=2, padx=10)
+save_button = tk.Button(button_frame, text="Save", command=save_data)
+save_button.grid(row=0, column=2, padx=10)
+exit_button = tk.Button(button_frame, text="Exit", command=root.destroy)
+exit_button.grid(row=0, column=3, padx=10)
 
 # Create a combo box to display the items available for return
 combo_frame = tk.Frame(root)
@@ -255,7 +265,7 @@ item_combo = ttk.Combobox(combo_frame, state="readonly")
 item_combo.grid(row=0, column=1, padx=10)
 
 # Create a label to display the status messages
-status_label = tk.Label(root, text="")
+status_label = tk.Label(root, text="", fg="red")
 status_label.pack(pady=10)
 
 # Load the existing data
